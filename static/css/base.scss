@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+
+$primary: #0039FF;
+$secondary: #6A00FF;
+$danger: #B20000;
+$warning: #FFCB33;
+$info: #008CCC;
+$success: #00B211;
+$pink: #CC0056;
+$orange: #E64B17;
+$black: #000;
+$white: #fff;
+$gray1: #26334D;
+$gray2: #62708C;
+$gray3: #ADB8CC;
+$gray4: #E1E5ED;
+$gray5: #F7F8FA;
+
+
+$fontawesome: 'Font Awesome 6 Pro';
+$roboto: 'Roboto', sans-serif;
+
+@mixin center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
