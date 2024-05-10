@@ -1,124 +1,134 @@
-@import 'base.scss';
+$outfit: "Outfit", sans-serif;
+$fontawesome: 'Font Awesome 6 Pro';
 
+$white: #fff;
+$black: #000;
 
 
 body{
-    font-family: $roboto;
-    background-color: #F7F8FA;
-}
-p{
+    margin: 0;
+    padding: 0;
+    font-family: $outfit;
     font-size: 16px;
-    color: #999;
-    &:last-child{
-        margin-bottom: 0;
-    }
-}
-img{
-    max-width: 100%;
-    height: auto;
-}
-a{
-    text-decoration: none;
-}
+    color: #475569;
+    background-color: #eff3f9;
 
-/*---------------------------------------------------------------------------------------------------------
-#Header
------------------------------------------------------------------------------------------------------------*/
-.header{
-    padding: 10px 0;
 }
-.head-icons{
-    display: flex;
-    gap: 15px;
-}
-.icn-box{
-    width: 50px;
-    height: 50px;
-    @include center();
-    font-size: 20px;
-    border-radius: 50%;
-    cursor: pointer;
-    color: #8C99B3;
-    &:hover{
-        background-color: rgba($color: #3361FF, $alpha: 0.1);
-        color: #3361FF;
-    }
-}
-.head-profile{
-    img{
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        cursor: pointer;
-    }
-}
-.logo{
-    max-width: 180px;
-}
-
-
-
-
-.profile{
-    border: 2px solid #DDE0E6;
-    padding: 10px;
-    border-radius: 50%;
-    overflow: hidden;
-    width: 130px;
-    height: 130px;
-    margin: 0 auto;
-    img{
-        border-radius: 50%;
-    }
-}
-.name{
-    color: #4D5E80;
-}
-.deg{
-    color: #8C99B3;
-    font-size: 14px;
-    margin-bottom: 20px;
-}
-
-.box{
-    border: 2px solid #EBECF0;
-    border-radius: 20px;
-    padding: 15px 15px;
-}
-
 
 .nav-item{
-    margin-bottom: 5px;
     a{
-        padding: 15px 20px;
-        border-radius: 10px;
-        color: #737F99;
-        font-weight: 400;
         display: block;
+        color: #737F99;
+        padding: 16px 20px;
+        border-radius: 12px;
+        font-weight: 300;
         i{
-            margin-right: 15px;
+            margin-right: 5px;
+        }
+        &:hover,
+        &.active{
+            color: $white;
+            i{
+                color: $white !important;
+            }
         }
     }
-    &:hover, &.active{
-        a{color: $white;}
-        i{color: $white !important;}
+}
+
+.card{
+    background-color: $white;
+    border-radius: 12px;
+    h5{
+        color: #475569;
+        font-size: 20px;
+        font-weight: 500;
     }
-    &.success{
-        i{color: $success;}
-        &:hover, &.active{
-            a{background-color: $success;}
+}
+
+.table{
+    width: 100%;
+    tr{
+        th{
+            background-color: #e7effd;
+            padding: 8px 16px;
+            font-weight: 500;
+            color: #475569;
+        }
+        td{
+            padding: 12px 16px;
+            color: #919aa3;
+        }
+        &:not(:last-child){
+            td{
+                border-bottom: 1px dashed #e0e0e0;
+            }
         }
     }
-    &.primary{
-        i{color: $primary;}
-        &:hover{
-            a{background-color: $primary;}
-        }
+}
+
+.avatar{
+    width: 40px;
+    height: 40px;
+    img{
+        border-radius: 50%;
     }
-    &.warning{
-        i{color: $warning;}
-        &:hover{
-            a{background-color: $warning;}
-        }
+}
+
+.badge{
+    display: inline-flex;
+    align-items: center;
+    padding: 5px 12px;
+    border-radius: 4px;
+    line-height: 1;
+    //background-color: rgba($color: #0a58ca, $alpha: 0.2);
+}
+
+.form-select{
+    width: 100%;
+    border-radius: 4px;
+    border: 1px solid #919aa3;
+    outline: none;
+    height: 28px;
+    background: transparent;
+    padding: 0 8px;
+    &:focus{
+        border: 1px solid #0f79f3;
     }
+}
+
+
+/*=============================================Custom=====================================================*/
+.ac-btn{
+    color: $black;
+    font-size: 24px;
+}
+.ac-cont{
+    position: absolute;
+    right: 50px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 8px;
+    border-radius: 8px;
+    background-color: $white;
+    min-width: 150px;
+    box-shadow: 0 0 10px rgba($color: #000000, $alpha: 0.09);
+    display: none;
+    &.open{
+        display: block;
+    }
+    &::after{
+        content: '\f04b';
+        font-family: $fontawesome;
+        font-weight: 600;
+        color: $white;
+        position: absolute;
+        right: -10px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+}
+.ac-item{
+    display: block;
+    padding: 4px;
+    border-radius: 8px;
 }

@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-x^_-na*7g^yohj=-ujip=+jzwx2v6a((xszy56=eenh66u14p$
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'core'
+    'core',
+    'account'
 ]
+
+AUTH_USER_MODEL = 'account.Employee'
+LOGIN_URL = '/login/'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -122,14 +126,10 @@ STATICFILES_DIRS = [
     BASE_DIR / 'static',
 ]
 
-# STATICFILES_FINDERS = ( 
-#     'django.contrib.staticfiles.finders.FileSystemFinder',  
-#     'django.contrib.staticfiles.finders.AppDirectoriesFinder',    
-#     'compressor.finders.CompressorFinder',
-# )
-# COMPRESS_PRECOMPILERS = (    
-#     ('text/x-scss', 'django_libsass.SassCompiler'),
-# )
+
+MEDIA_URL = '/uploads/'
+MEDIA_ROOT =  BASE_DIR / 'uploads'
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
