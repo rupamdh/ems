@@ -21,6 +21,7 @@ from django.urls import path
 from core.views import *
 
 from account.views import *
+from hr.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -31,9 +32,16 @@ urlpatterns = [
 
     path('dashboard/', dashboard, name='dashboard'),
     path('employees/', employees, name='employees'),
+    path('add-employee/', add_employee, name='add-employee'),
+
     path('book/<int:id>/', book, name='book'),
     path('free/<int:id>/', free, name='free'),
     path('assist/<int:id>/', assist, name='assist'),
+
+    path('leaves/', leaves, name='leaves'),
+    path('apply-leave/', apply_leave, name='apply-leave'),
+    path('delete-leave/', delete_leave, name='delete-leave'),
+    path('approve-leave-manager/', approve_leave_manager, name='approve-leave-manager'),
 ]
 
 

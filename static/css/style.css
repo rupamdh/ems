@@ -4,7 +4,15 @@ body {
   font-family: "Outfit", sans-serif;
   font-size: 16px;
   color: #475569;
-  background-color: #eff3f9;
+  background-color: #e1e4ea;
+}
+
+p:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+h5 {
+  font-size: 24px !important;
 }
 
 .nav-item a {
@@ -13,6 +21,7 @@ body {
   padding: 16px 20px;
   border-radius: 12px;
   font-weight: 300;
+  margin-bottom: 5px;
 }
 .nav-item a i {
   margin-right: 5px;
@@ -22,6 +31,15 @@ body {
 }
 .nav-item a:hover i, .nav-item a.active i {
   color: #fff !important;
+}
+
+.btn {
+  text-decoration: none;
+  display: inline-block;
+  padding: 8px 28px;
+  border-radius: 4px;
+  border: 1px solid;
+  transition: all 0.5s ease;
 }
 
 .card {
@@ -43,9 +61,21 @@ body {
   font-weight: 500;
   color: #475569;
 }
+.table tr th:first-child {
+  padding-left: 20px;
+}
+.table tr th:last-child {
+  padding-right: 20px;
+}
 .table tr td {
   padding: 12px 16px;
-  color: #919aa3;
+  color: #828a93;
+}
+.table tr td:first-child {
+  padding-left: 20px;
+}
+.table tr td:last-child {
+  padding-right: 20px;
 }
 .table tr:not(:last-child) td {
   border-bottom: 1px dashed #e0e0e0;
@@ -67,17 +97,27 @@ body {
   line-height: 1;
 }
 
-.form-select {
+.form-select,
+.form-control {
   width: 100%;
+  height: 40px;
   border-radius: 4px;
   border: 1px solid #919aa3;
   outline: none;
-  height: 28px;
   background: transparent;
   padding: 0 8px;
 }
-.form-select:focus {
+.form-select:focus,
+.form-control:focus {
   border: 1px solid #0f79f3;
+  outline: none;
+}
+
+.form-lebel {
+  display: block;
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #1b2128;
 }
 
 /*=============================================Custom=====================================================*/
@@ -116,4 +156,107 @@ body {
   display: block;
   padding: 4px;
   border-radius: 8px;
+}
+
+/*==========================================Login===========================================================*/
+.login-form label {
+  font-size: 18px;
+  color: #475569;
+  font-weight: 600;
+}
+.login-form input {
+  width: 100%;
+  height: 40px;
+  border-radius: 4px;
+  border: 1px solid #eaeaea;
+  padding: 15px;
+  outline: none;
+}
+.login-form input:focus {
+  border: 1px solid #0f79f3;
+}
+.login-form input::-moz-placeholder {
+  font-size: 14px;
+}
+.login-form input::placeholder {
+  font-size: 14px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #e74c3c;
+  transition: 0.4s;
+}
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: #fff;
+  transition: 0.4s;
+}
+
+input:checked + .slider {
+  background-color: #2ed47e;
+}
+input:checked + .slider:before {
+  transform: translateX(26px);
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+.slider.round {
+  border-radius: 34px;
+}
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.dt-layout-row:not(.dt-layout-table) {
+  padding: 0 20px;
+}
+
+/*-----------------------------------------
+#Employee Listing
+--------------------------------------------*/
+.employee .dt-search input {
+  outline: none;
+  border-radius: 8px !important;
+  padding: 8px !important;
+  height: 36px;
+}
+.employee div.dt-container .dt-paging .dt-paging-button:not(.disabled) {
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 4px;
+}
+.employee div.dt-container .dt-paging .dt-paging-button:not(.disabled):hover {
+  background: #f7f7f7;
+  border: 1px solid #adadad;
+  color: #475569 !important;
+}
+.employee table.dataTable th.dt-type-numeric,
+.employee table.dataTable td.dt-type-numeric {
+  text-align: left;
 }/*# sourceMappingURL=style.css.map */

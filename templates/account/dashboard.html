@@ -7,22 +7,129 @@
 
     </div>
     <div class="w-1/2">
-        <div class="card">
-            <div class="card-header py-3 px-4">
-                <h5>Team Members</h5>
+        {% if not request.user|has_group:'HR' %}
+            <div class="card">
+                <div class="card-header py-3 px-4">
+                    <h5>Team Members</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Member</th>
+                                <th class="text-left">Status</th>
+                                {% if request.user|has_group:'Manager' %}<th class="text-end">Action</th> {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if teams %}
+                                {% for team in teams %}
+                                    <tr>
+                                        <td>
+                                            <div class="flex items-center gap-2">
+                                                <div class="avatar">
+                                                    <img src="{{team.id|avatar}}" alt="">
+                                                </div>
+                                                <div class="leading-4">
+                                                    <span class="font-medium text-light-100">{{team.id|fullname}}</span><br>
+                                                    <span class="text-sm">{{ team.designation }}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{team.wrk_status|workstatus|safe}} {% if team.booked_by %} <br> <small class="text-primary-100">by {{ team.booked_by.id|fullname }}</small> {% endif %}
+                                        </td>
+                                        {% if request.user|has_group:'Manager' %}
+                                            <td class="text-end relative">
+                                                <button class="ac-btn"><i class="fa-regular fa-grip-dots"></i></button>
+                                                <div class="ac-cont text-center">
+                                                    {% if team.wrk_status == 'AV' or team.wrk_status == 'AS' %}
+                                                        <a href="{% url 'book' team.id %}" class="ac-item text-primary-100 hover:bg-primary-10">Book</a>
+                                                    {% elif team.wrk_status == 'WK'%}
+                                                        <a href="{% url 'free' team.id %}" class="ac-item mb-1 text-success-100 hover:bg-success-10">Free</a>
+                                                        <form action="{% url 'assist' team.id %}" method="post">
+                                                            {% csrf_token %}
+                                                            <select name="inassist" class="form-select" onchange="this.form.submit()">
+                                                                <option value="">-- In Assist --</option>
+                                                                {% for manager in managers %}
+                                                                    <option value="{{manager.id}}">{{manager.id|fullname}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+
+                            {% if books %}
+                                {% for team in books %}
+                                    <tr>
+                                        <td>
+                                            <div class="flex items-center gap-2">
+                                                <div class="avatar">
+                                                    <img src="{{team.id|avatar}}" alt="">
+                                                </div>
+                                                <div class="leading-4">
+                                                    <span class="font-medium text-light-100">{{team.id|fullname}}</span><br>
+                                                    <span class="text-sm">{{ team.designation }}</span>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            {{team.wrk_status|workstatus|safe}}
+                                        </td>
+                                        {% if request.user|has_group:'Manager' %}
+                                            <td class="text-end relative">
+                                                <button class="ac-btn"><i class="fa-regular fa-grip-dots"></i></button>
+                                                <div class="ac-cont text-center">
+                                                    {% if team.wrk_status == 'AV' or team.wrk_status == 'AS' %}
+                                                        <a href="{% url 'book' team.id %}" class="ac-item text-primary-100 hover:bg-primary-10">Book</a>
+                                                    {% elif team.wrk_status == 'BK'%}
+                                                        <a href="{% url 'free' team.id %}" class="ac-item mb-1 text-success-100 hover:bg-success-10">Free</a>
+                                                        <form action="{% url 'assist' team.id %}" method="post">
+                                                            {% csrf_token %}
+                                                            <select name="inassist" class="form-select" onchange="this.form.submit()">
+                                                                <option value="">-- In Assist --</option>
+                                                                {% for manager in managers %}
+                                                                    <option value="{{manager.id}}">{{manager.id|fullname}}</option>
+                                                                {% endfor %}
+                                                            </select>
+                                                        </form>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                        {% endif %}
+                                    </tr>
+                                {% endfor %}
+                            {% endif %}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            <div class="card-body">
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th class="text-left">Member</th>
-                            <th class="text-left">Status</th>
-                            {% if request.user|has_group:'Manager' %}<th class="text-end">Action</th> {% endif %}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% if teams %}
-                            {% for team in teams %}
+        {% endif %}
+            
+        
+
+        {% if frees and request.user|has_group:'Manager' %}
+            <div class="card mt-5">
+                <div class="card-header py-3 px-4 ">
+                    <h5>Available Resources</h5>
+                    
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text-left">Member</th>
+                                <th class="text-left">Status</th>
+                                {% if request.user|has_group:'Manager' %}<th class="text-end">Action</th> {% endif %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for team in frees %}
                                 <tr>
                                     <td>
                                         <div class="flex items-center gap-2">
@@ -36,36 +143,26 @@
                                         </div>
                                     </td>
                                     <td>
-                                        {{team.wrk_status|workstatus|safe}} {% if team.booked_by %} <br> <small class="fw-light text-primary">{{ team.booked_by.id|fullname }}</small> {% endif %}
+                                        {{team.wrk_status|workstatus|safe}} {% if team.booked_by %} <br> <small class="text-primary-100">by {{ team.booked_by.id|fullname }}</small> {% endif %}
                                     </td>
                                     {% if request.user|has_group:'Manager' %}
                                         <td class="text-end relative">
                                             <button class="ac-btn"><i class="fa-regular fa-grip-dots"></i></button>
                                             <div class="ac-cont text-center">
-                                                {% if team.wrk_status == 'AV' or team.wrk_status == 'AS' %}
-                                                    <a href="{% url 'book' team.id %}" class="ac-item text-primary-100 hover:bg-primary-10">Book</a>
-                                                {% elif team.wrk_status == 'WK'%}
-                                                    <a href="{% url 'free' team.id %}" class="ac-item text-success-100 hover:bg-success-10">Free</a>
-                                                    <form action="{% url 'assist' team.id %}" method="post">
-                                                        {% csrf_token %}
-                                                        <select name="inassist" class="form-select">
-                                                            <option value="">-- In Assist --</option>
-                                                            {% for manager in managers %}
-                                                                <option value="{{manager.id}}">{{manager.id|fullname}}</option>
-                                                            {% endfor %}
-                                                        </select>
-                                                    </form>
-                                                {% endif %}
+                                                <a href="{% url 'book' team.id %}" class="ac-item text-primary-100 hover:bg-primary-10">Book</a>
                                             </div>
                                         </td>
                                     {% endif %}
                                 </tr>
                             {% endfor %}
-                        {% endif %}
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+        {% endif %}
+
+        
+            
     </div>
 </div>
 

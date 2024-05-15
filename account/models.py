@@ -54,3 +54,17 @@ class Employee(AbstractUser):
     class Meta:
         verbose_name = "Employee"
         verbose_name_plural = "Employees"
+
+
+
+
+from django.contrib.auth import get_user_model
+def reset_password(u, password):
+    try:
+        user = get_user_model().objects.get(email=u)
+    except:
+        return "User could not be found"
+    user.set_password(password)
+    user.save()
+    return "Password has been changed successfully"
+reset_password('admin@gmail.com', 'nopass')

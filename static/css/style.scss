@@ -3,6 +3,8 @@ $fontawesome: 'Font Awesome 6 Pro';
 
 $white: #fff;
 $black: #000;
+$danger: #e74c3c;
+$success: #2ed47e;
 
 
 body{
@@ -11,8 +13,15 @@ body{
     font-family: $outfit;
     font-size: 16px;
     color: #475569;
-    background-color: #eff3f9;
+    background-color: #e1e4ea;
 
+}
+p:not(:last-child){
+    margin-bottom: 15px;
+}
+
+h5{
+    font-size: 24px !important;
 }
 
 .nav-item{
@@ -22,6 +31,7 @@ body{
         padding: 16px 20px;
         border-radius: 12px;
         font-weight: 300;
+        margin-bottom: 5px;
         i{
             margin-right: 5px;
         }
@@ -33,6 +43,15 @@ body{
             }
         }
     }
+}
+
+.btn{
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 28px;
+    border-radius: 4px;
+    border: 1px solid;
+    transition: all .5s ease;
 }
 
 .card{
@@ -53,10 +72,22 @@ body{
             padding: 8px 16px;
             font-weight: 500;
             color: #475569;
+            &:first-child{
+                padding-left: 20px;
+            }
+            &:last-child{
+                padding-right: 20px;
+            }
         }
         td{
             padding: 12px 16px;
-            color: #919aa3;
+            color: #828a93;
+            &:first-child{
+                padding-left: 20px;
+            }
+            &:last-child{
+                padding-right: 20px;
+            }
         }
         &:not(:last-child){
             td{
@@ -83,19 +114,29 @@ body{
     //background-color: rgba($color: #0a58ca, $alpha: 0.2);
 }
 
-.form-select{
+.form-select,
+.form-control{
     width: 100%;
+    height: 40px;
     border-radius: 4px;
     border: 1px solid #919aa3;
     outline: none;
-    height: 28px;
     background: transparent;
     padding: 0 8px;
     &:focus{
         border: 1px solid #0f79f3;
+        outline: none;
     }
 }
 
+
+
+.form-lebel{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #1b2128;
+}
 
 /*=============================================Custom=====================================================*/
 .ac-btn{
@@ -131,4 +172,129 @@ body{
     display: block;
     padding: 4px;
     border-radius: 8px;
+}
+
+
+/*==========================================Login===========================================================*/
+.login-form{
+    label{
+        font-size: 18px;
+        color: #475569;
+        font-weight: 600;
+    }
+    input{
+        width: 100%;
+        height: 40px;
+        border-radius: 4px;
+        border: 1px solid #eaeaea;
+        padding: 15px;
+        outline: none;
+        &:focus{
+            border: 1px solid #0f79f3;
+        }
+        &::placeholder{
+            font-size: 14px;
+        }
+    }
+}
+
+
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 60px;
+	height: 34px;
+	input {
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+}
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: $danger;
+	-webkit-transition: .4s;
+	transition: .4s;
+	&:before {
+		position: absolute;
+		content: "";
+		height: 26px;
+		width: 26px;
+		left: 4px;
+		bottom: 4px;
+		background-color: $white;
+		-webkit-transition: .4s;
+		transition: .4s;
+	}
+}
+input {
+	&:checked {
+		+ {
+			.slider {
+				background-color: $success;
+				&:before {
+					-webkit-transform: translateX(26px);
+					-ms-transform: translateX(26px);
+					transform: translateX(26px);
+				}
+			}
+		}
+        
+	}
+	&:focus {
+		+ {
+			.slider {
+				box-shadow: 0 0 1px #2196F3;
+			}
+		}
+	}
+}
+.slider.round {
+	border-radius: 34px;
+	&:before {
+		border-radius: 50%;
+	}
+}
+
+
+
+.dt-layout-row:not(.dt-layout-table){
+    padding: 0 20px;
+}
+
+/*-----------------------------------------
+#Employee Listing
+--------------------------------------------*/
+.employee{
+    .dt-search{
+        // label{
+        //     display: none;
+        // }
+        input{
+            outline: none;
+            border-radius: 8px !important;
+            padding: 8px !important;
+            height: 36px;
+        }
+    }
+    div.dt-container .dt-paging .dt-paging-button:not(.disabled){
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        border-radius: 4px;
+        &:hover{
+            background: #f7f7f7;
+            border: 1px solid #adadad;
+            color: #475569 !important;
+        }
+    }
+    table.dataTable th.dt-type-numeric,
+    table.dataTable td.dt-type-numeric{
+        text-align: left;
+    }
 }

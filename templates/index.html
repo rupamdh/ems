@@ -1,82 +1,82 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Home | EMS</title>
+	<link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
+	<link rel="stylesheet" type="text/css" href="/static/fontawesome/css/all.css">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
 
-{% block 'content' %}
-    <div class="flex gap-5">
-        <div class="w-1/2">
+<body>
+
+
+
+    <main class="site">
+        <div class="container mx-auto mt-10">
+            <a href="{% url 'login' %}" class="btn text-white bg-primary-100 border-primary-100 hover:text-primary-100 hover:bg-transparent">Login</a>
 
         </div>
-        <div class="w-1/2">
-            <div class="card">
-                <div class="card-header py-3 px-4">
-                    <h5>Team Members</h5>
-                </div>
-                <div class="card-body">
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th class="text-left">Member</th>
-                                <th class="text-left">Status</th>
-                                <th class="text-end">Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <div class="flex items-center gap-2">
-                                        <div class="avatar">
-                                            <img src="static/images/user.png" alt="">
-                                        </div>
-                                        <div class="leading-4">
-                                            <span class="font-medium text-light-100">Bernice Ray</span><br>
-                                            <span class="text-sm">Web Developer</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge text-primary-100 bg-primary-10">Primary</span>
-                                </td>
-                                <td class="text-end relative">
-                                    <button class="ac-btn"><i class="fa-regular fa-grip-dots"></i></button>
-                                    <div class="ac-cont text-center">
-                                        <a href="#" class="ac-item text-primary-100 hover:bg-primary-10" >Book</a>
-                                        <select name="country" class="form-select">
-                                            <option>United States</option>
-                                            <option>Canada</option>
-                                            <option>Mexico</option>
-                                        </select>
-                                    </div>
+    </main>
 
-                                    
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="flex items-center gap-2">
-                                        <div class="avatar">
-                                            <img src="static/images/user.png" alt="">
-                                        </div>
-                                        <div class="leading-4">
-                                            <span class="font-medium text-light-100">Bernice Ray</span><br>
-                                            <span class="text-sm">Web Developer</span>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <span class="badge text-primary-100 bg-primary-10">Primary</span>
-                                </td>
-                                <td class="text-end relative">
-                                    <button class="ac-btn"><i class="fa-regular fa-grip-dots"></i></button>
-                                    <div class="ac-cont text-center">
-                                        <a href="#" class="ac-item text-primary-100 hover:bg-primary-10" >Book</a>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
-    </div>
+
     
+	
 
-{% endblock 'content' %}
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    sm: '360px',
+                    md: '768px',
+                    lg: '976px',
+                    xl: '1366px',
+                },
+                extend: {
+                    colors: {
+                        primary: {
+                            100: '#0f79f3',
+                            10: '#0f79f31a'
+                        },
+                        secondary: {
+                            100: '#6c757d',
+                            10: '#6c757d1a'
+                        },
+                        success: {
+                            100: '#2ed47e',
+                            10: '#2ed47e1a'
+                        },
+                        info: {
+                            100: '#00cae3',
+                            10: '#00cae31a'
+                        },
+                        warning: {
+                            100: '#ffb264',
+                            10: '#ffb2641a'
+                        },
+                        danger: {
+                            100: '#e74c3c',
+                            10: '#e74c3c1a'
+                        },
+                        light: {
+                            100: '#475569',
+                            10: '#4755691a'
+                        }
+                    }
+                }
+            },
+            // container: {
+            //     center: true,
+            // },
+            fontFamily: {
+                out: ["Outfit", 'sans-serif']
+            }
+        }
+    </script>
+	<script src="/static/js/script.js"></script>
+</body>
+
+</html>

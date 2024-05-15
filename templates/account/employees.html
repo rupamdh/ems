@@ -1,50 +1,48 @@
 {% extends 'base.html' %}
+{% load my_tags %}
 {% block 'title' %}Employees | EMS{% endblock 'title' %}
 {% block 'content' %}
-    <div class="row">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <h5>Employees</h5>
-                </div>
-                <div class="card-body">
-                    <div class="table-responsive text-nowrap">
-                        <table class="table mb-0">
-                            <thead>
-                                <tr>
-                                    <th>#</th>
-                                    <th>Name</th>
-                                    <th>Designation</th>
-                                    <th>Email</th>
-                                    <th>Assigned To</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody class="table-border-bottom-0">
-                                
-                                {% for employee in employees %}
-                                    <tr>
-                                        <td>
-                                            <div class="avatar"><img src="/uploads/{{employee.image}}" alt=""></div>
-                                        </td>
-                                        <td>{{ employee.first_name }} {{ employee.last_name }}</td>
-                                        <td>{{ employee.designation }}</td>
-                                        <td><a href="mailto:{{ employee.email }}">{{ employee.email }}</a></td>
-                                        <td>{{ employee.assigned_to.first_name }} {{ employee.assigned_to.last_name }}</td>
-                                        <td>
-                                            <a href="#" class="me-3 edit"><i class="fa-light fa-pen-to-square"></i></a>
-                                            <a href="#" class="delete"><i class="fa-light fa-trash-can"></i></a>
-                                        </td>
-                                    </tr>
-                                {% endfor %}
-                
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
+    <div class="card">
+        <div class="card-header py-3 px-5 flex justify-between">
+            <h5>Employees</h5>
+            <a href="{% url 'add-employee' %}" class="btn text-white bg-primary-100 hover:text-primary-100 hover:bg-transparent"><i class="fa-light fa-plus"></i> Add Employee</a>
+        </div>
+
+        <div class="card-body employee">
+            <table class="table" id="emptable">
+                <thead>
+                    <tr>
+                        <th class="text-left">Employee</th>
+                        <th class="text-left">Phone</th>
+                        <th class="text-left">Status</th>
+                        <th class="!text-right">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for emp in employees %}
+                        <tr>
+                            <td>
+                                <div class="flex items-center gap-2">
+                                    <div class="avatar">
+                                        <img src="{{emp.id|avatar}}" alt="">
+                                    </div>
+                                    <div class="leading-4">
+                                        <span class="font-medium text-light-100">{{emp.id|fullname}}</span><br>
+                                        <span class="text-sm">{{ emp.designation }}</span>
+                                    </div>
+                                </div>
+                            </td>
+                            <td>{{ emp.phone }}</td>
+                            <td>{{ emp.wrk_status|workstatus|safe }}</td>
+                            <td class="!text-right">
+                                <a href="#" class="text-primary-100" title="Edit"><i class="fa-regular fa-pen-to-square"></i></a>
+                            </td>
+                        </tr>
+                    {% endfor %} 
+                </tbody>
+            </table>
         </div>
     </div>
-
     
 {% endblock 'content' %}
+

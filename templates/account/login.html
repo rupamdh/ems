@@ -5,9 +5,9 @@
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 	<title>Login | EMS</title>
 	<link rel="icon" type="image/x-icon" href="/static/images/favicon.png">
-	<link rel="stylesheet" type="text/css" href="/static/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="/static/fontawesome/css/all.css">
-	<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+	<link rel="stylesheet" type="text/css" href="{% static 'fontawesome/css/all.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body>
@@ -15,30 +15,24 @@
 
 
     <main class="site">
-        <div class="center login-page">
-            <div class="container-xxl">
-                <div class="row justify-content-center">
-                    <div class="col-md-4">
-                        <div class="card">
-                            <div class="card-body p-4 py-5">
-                                <img src="/static/images/logo.png" alt="" class="d-block m-auto mb-4">
+        <div class="flex justify-center items-center h-screen login-page">
+            <div class="container mx-auto max-w-md bg-white rounded-xl">
+                <div class="p-7">
+                    <img src="/static/images/logo.png" alt="" class="d-block m-auto mb-4">
 
-                                <h5>Welcome to EMS! 👋</h5>
-                                <p>Please sign-in to your account and start the adventure</p>
+                    <h5>Welcome to EMS!</h5>
+                    <p>Please sign-in to your account and start the adventure</p>
 
-                                <form method="post">
-                                    {% csrf_token %}
-                                    <label for="email"> <small>Email</small></label>
-                                    <input id="email" type="email" name="email" placeholder="Enter Your Email" class="form-control mb-3">
-                                    <label for="password"> <small>Password</small></label>
-                                    <input id="password" type="password" name="password" placeholder="Enter Your Password" class="form-control mb-1">
-                                    <p class="text-end"><a href="#"><small>Forgot Password?</small></a></p>
-                                    <button type="submit" class="btn btn-primary w-100">Log in</button>
-                                </form>
+                    <form method="post" class="login-form">
+                        {% csrf_token %}
+                        <label for="email"> <small>Email</small></label>
+                        <input id="email" type="email" name="email" placeholder="Enter Your Email" class="mb-3">
+                        <label for="password"> <small>Password</small></label>
+                        <input id="password" type="password" name="password" placeholder="Enter Your Password" class="mb-1">
+                        <p class="text-end"><a href="#" class="text-primary-100 hover:underline"><small>Forgot Password?</small></a></p>
+                        <button type="submit" class="btn text-white bg-primary-100 border-primary-100 w-full hover:text-primary-100 hover:bg-transparent">Log in</button>
+                    </form>
 
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -49,9 +43,57 @@
 	
 
     
-
-	<script src="/static/js/bootstrap.js"></script>
-	<script src="/static/js/script.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                screens: {
+                    sm: '360px',
+                    md: '768px',
+                    lg: '976px',
+                    xl: '1440px',
+                },
+                extend: {
+                    colors: {
+                        primary: {
+                            100: '#0f79f3',
+                            10: '#0f79f31a'
+                        },
+                        secondary: {
+                            100: '#6c757d',
+                            10: '#6c757d1a'
+                        },
+                        success: {
+                            100: '#2ed47e',
+                            10: '#2ed47e1a'
+                        },
+                        info: {
+                            100: '#00cae3',
+                            10: '#00cae31a'
+                        },
+                        warning: {
+                            100: '#ffb264',
+                            10: '#ffb2641a'
+                        },
+                        danger: {
+                            100: '#e74c3c',
+                            10: '#e74c3c1a'
+                        },
+                        light: {
+                            100: '#475569',
+                            10: '#4755691a'
+                        }
+                    }
+                }
+            },
+            // container: {
+            //     center: true,
+            // },
+            fontFamily: {
+                out: ["Outfit", 'sans-serif']
+            }
+        }
+    </script>
+	<script src="{% static 'js/script.js' %}"></script>
 </body>
 
 </html>

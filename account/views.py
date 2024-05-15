@@ -3,7 +3,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from core.utils import *
 from .models import *
+from .forms import *
+from .decorators import is_group
 from django.db.models import Q
+
 
 # Authentication
 def login_page(request):
@@ -24,6 +27,31 @@ def logout_url(request):
     return redirect('login')
 
 
+#Employee
+@login_required
+@is_group('HR')
+def employees(request):
+    employees = Employee.objects.all().exclude(is_superuser=True).order_by('first_name')
+
+    data = {
+        'employees' : employees
+    }
+    return render(request, 'account/employees.html', data)
+
+@login_required
+def add_employee(request):
+    if request.method == 'POST':
+        form = EmployeeForm(request.POST)
+        if form.is_valid():
+            print('Valid')
+        else:
+            print('Not Valid')
+    else:
+        form = EmployeeForm()
+    data = {
+        'form': form
+    }
+    return render(request, 'account/employee-add.html', data)
 
 # Dashboard Functions
 @login_required
@@ -79,12 +107,5 @@ def assist(request, id):
 
     return redirect('dashboard')
 
-@login_required
-def employees(request):
-    employees = Employee.objects.all().exclude(is_superuser=True).order_by('first_name')
 
-    data = {
-        'employees' : employees
-    }
-    return render(request, 'account/employees.html', data)
 

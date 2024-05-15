@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+{% load my_tags %}
+{% block 'title' %}Holidays | EMS{% endblock 'title' %}
+{% block 'content' %}
+
+    <div class="card">
+        <div class="card-header py-3 px-4 flex justify-between items-center border-b-2">
+            <h5>Apply Leave</h5>
+        </div>
+
+        <div class="card-body px-4 py-4">
+            
+            {% if messages %}
+                {% for message in messages %}
+                    <span class="text-danger-100 text-xs">{{ message }}</span>
+                {% endfor %}
+            {% endif %}
+                            
+            <span id="error" class="text-danger-100 text-xs">{{ message }}</span>
+            <form method="post" id="leaveform">
+                {% csrf_token %}
+                <label for="leavetype" class="form-lebel">Leave Type</label>
+                <select name="leavetype" id="leavetype" class="form-select mb-4" required>
+                    <option value="1">Full Day</option>
+                    <option value="2">First Half</option>
+                    <option value="3">Second Half</option>
+                    <option value="4">Fullday with Second Half of Start Date</option>
+                    <option value="5">Fullday with First Half of End Date</option>
+                </select>
+                <div class="flex gap-3 mb-4">
+                    <div class="w-1/2">
+                        <label for="start_date" class="form-lebel">Start Date</label>
+                        <input type="date" name="start_date" id="start_date" class="form-control" required>
+                    </div>
+                    <div class="w-1/2">
+                        <label for="end_date" class="form-lebel">End Date</label>
+                        <input type="date" name="end_date" id="end_date" class="form-control" required>
+                        <span class="text-danger-100 text-xs"></span>
+                    </div>
+                </div> 
+                <label for="reason" class="form-lebel">Reason</label>
+                <textarea name="reason" id="reason" class="form-control mb-4 h-24 py-2" required></textarea>
+                <button type="submit" class="btn block mx-auto text-white border-primary-100 bg-primary-100 hover:text-primary-100 hover:bg-transparent">Submit</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            
+            $('#leaveform').submit(function (e) {  
+                var type = $('#leavetype').val();
+                var start = $('#start_date').val();
+                var end = $('#end_date').val();
+                if(type == '4' && start==end){
+                    e.preventDefault();
+                    $('#error').text('Start Date and End Date should not be Same For Selected Leave Type');
+                } else if(type == '5' && start==end){
+                    e.preventDefault();
+                    $('#error').text('Start Date and End Date should not be Same For Selected Leave Type');
+                }
+
+                if (start>end){
+                    e.preventDefault();
+                    console.log('Greater');
+                    $('#end_date').addClass('border-1 border-danger-100');
+                    $('#end_date').next().text('End Date Should be After Start Date');
+                }
+            });
+            
+
+        });
+    </script>
+    
+{% endblock 'content' %}
