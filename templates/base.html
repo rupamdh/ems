@@ -6,7 +6,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>
+    {% block 'title' %}
+        Dashboard
+    {% endblock 'title' %}
+        </title>
     <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.png' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,6 +25,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     
 </head>
+
 
 <body>
 
@@ -43,7 +48,11 @@
                 <div class="w-full md:w-3/12">
                     {% if request.user.is_authenticated %}
                         <div class="w-32 h-32 rounded-full border-2 border-gray-300 p-2 mx-auto">
-                            <img src="{{ request.user.id|avatar }}" alt="" class="rounded-full">
+                            {% if request.user.image %}
+                                <img src="{{ request.user.id|avatar }}" alt="" class="rounded-full">
+                            {% else %}
+                                <img src="/static/images/user-img.png" alt="" class="rounded-full">
+                            {% endif %}
                         </div>
             
                         <div class="text-center mt-3">
@@ -56,16 +65,18 @@
                             <div class="nav-item">
                                 <a href="{% url 'dashboard' %}" class="text hover:bg-primary-100 {% if url == 'dashboard' %}bg-primary-100 active{% endif %}"><i class="fa-solid fa-house text-primary-100"></i>Dashboard</a>
                             </div>
+
                             <div class="nav-item">
-                                <a href="{% url 'employees' %}" class="hover:bg-warning-100 {% if url == 'leaves' or url == 'employees' %}bg-warning-100 active{% endif %}"><i class="fa-solid fa-users text-warning-100"></i> Employees</a>
+                                <a href="{% url 'employees' %}" class="hover:bg-warning-100 {% if url == 'add-employee' or url == 'employees' or url == 'edit-employee' %}bg-warning-100 active{% endif %}"><i class="fa-solid fa-users text-warning-100"></i> Employees</a>
                             </div>
+
+                            <div class="nav-item">
+                                <a href="{% url 'leaves' %}" class="hover:bg-info-100 {% if url == 'leaves' or url == 'apply-leave' %}bg-info-100 active{% endif %}"><i class="fa-solid fa-champagne-glasses text-info-100"></i> Leaves</a>
+                            </div>
+                            
 
                             {% comment %} <div class="nav-item">
                                 <a href="#" class="hover:bg-warning-100"><i class="fa-solid fa-diagram-project text-warning-100"></i> Projects</a>
-                            </div>
-
-                            <div class="nav-item">
-                                <a href="{% url 'leaves' %}" class="hover:bg-info-100 {% if url == 'leaves' or url == 'apply-leave' %}bg-info-100 active{% endif %}"><i class="fa-solid fa-champagne-glasses text-info-100"></i> Holiday List</a>
                             </div> {% endcomment %}
 
                             <div class="nav-item">
@@ -75,7 +86,7 @@
                     </div>
                 </div>
                 <div class="w-full md:w-9/12">
-                    
+                        {% comment %} https://docs.google.com/document/d/1i2r4O_fifrck0IjN4DBxFHyasXGMz_4ZZcXwVN3NKKM/edit?usp=sharing {% endcomment %}
                     {% block 'content' %}
                         
                     {% endblock 'content' %}

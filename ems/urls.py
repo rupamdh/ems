@@ -33,6 +33,7 @@ urlpatterns = [
     path('dashboard/', dashboard, name='dashboard'),
     path('employees/', employees, name='employees'),
     path('add-employee/', add_employee, name='add-employee'),
+    path('edit-employee/<int:id>/', edit_employee, name='edit-employee'),
 
     path('book/<int:id>/', book, name='book'),
     path('free/<int:id>/', free, name='free'),

@@ -24,7 +24,11 @@
                             <td>
                                 <div class="flex items-center gap-2">
                                     <div class="avatar">
-                                        <img src="{{emp.id|avatar}}" alt="">
+                                        {% if emp.image %}
+                                            <img src="{{emp.id|avatar}}" alt="{{emp.id|fullname}}">
+                                        {% else %}
+                                            <img src="/static/images/user-img.png" alt="{{emp.id|fullname}}">
+                                        {% endif %}
                                     </div>
                                     <div class="leading-4">
                                         <span class="font-medium text-light-100">{{emp.id|fullname}}</span><br>
@@ -35,7 +39,7 @@
                             <td>{{ emp.phone }}</td>
                             <td>{{ emp.wrk_status|workstatus|safe }}</td>
                             <td class="!text-right">
-                                <a href="#" class="text-primary-100" title="Edit"><i class="fa-regular fa-pen-to-square"></i></a>
+                                <a href="{% url 'edit-employee' emp.id %}" class="text-primary-100" title="Edit"><i class="fa-regular fa-pen-to-square"></i></a>
                             </td>
                         </tr>
                     {% endfor %} 

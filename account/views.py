@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from core.utils import *
@@ -39,19 +39,39 @@ def employees(request):
     return render(request, 'account/employees.html', data)
 
 @login_required
+@is_group('HR')
 def add_employee(request):
     if request.method == 'POST':
         form = EmployeeForm(request.POST)
         if form.is_valid():
-            print('Valid')
-        else:
-            print('Not Valid')
+            form.save()
+            return redirect('employees')
     else:
         form = EmployeeForm()
     data = {
         'form': form
     }
     return render(request, 'account/employee-add.html', data)
+
+@login_required
+@is_group('HR')
+def edit_employee(request, id):
+    instance = get_object_or_404(Employee, id=id)
+    if request.method == 'POST':
+        form = EmployeeEditForm(request.POST, request.FILES, instance=instance)
+        if form.is_valid():
+            form.save()
+            return redirect('employees')
+        else:
+            print('Not Valid')
+    else:
+        form = EmployeeEditForm(instance=instance)
+
+    data = {
+        'employee' : instance,
+        'form' : form
+    }
+    return render(request, 'account/employee-edit.html', data)
 
 # Dashboard Functions
 @login_required

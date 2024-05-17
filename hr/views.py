@@ -8,7 +8,7 @@ from django.contrib import messages
 def leaves(request):
     holidays = Holiday.objects.filter(start_date__year=datetime.now().year)
     leave_requests = Leave.objects.filter(employee__assigned_to=request.user, start_date__gt=datetime.today())
-    leaves = Leave.objects.filter(employee=request.user, start_date__gt=datetime.today())
+    leaves = Leave.objects.filter(employee=request.user)
 
     data = {
         'holidays' : holidays,

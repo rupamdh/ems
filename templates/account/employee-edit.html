@@ -1,15 +1,29 @@
 {% extends 'base.html' %}
-{% block 'title' %}Add Employees | EMS{% endblock 'title' %}
+{% load my_tags %}
+{% block 'title' %}Edit {{ employee.id|fullname }} | EMS{% endblock 'title' %}
 {% block 'content' %}
     <div class="card">
         <div class="card-header py-3 px-5">
-            <h5>Add Employees</h5>
+            <h5>Edit Employees</h5>
         </div>
 
-        <div class="card-body px-5 pb-5 employee-add">
-            <form action="" method="post" novalidate>
+        <div class="card-body px-5 pb-5 employye-edit">
+            <form method="post" novalidate enctype="multipart/form-data">
                 {% csrf_token %}
                 
+                <div class="edit-profile w-max mx-auto mb-5 relative">
+                    
+                    {% if employee.image %}
+                        <img src="/uploads/{{ employee.image }}" alt="" id="pr_image" class="rounded-full w-36 h-36 object-cover">
+                    {% else %}
+                        <img src="/static/images/user-img.png" alt="" id="pr_image" class="rounded-full w-36 h-36 object-cover">
+                    {% endif %}
+                    <div class="upload-btn-wrapper">
+                        <button class="upload-btn"><i class="fa-regular fa-camera"></i></button>
+                        <input type="file" name="image" accept="image/*" id="id_image" onChange="img_pathUrl(this);">
+                    </div>
+                </div>
+
                 <div class="flex flex-wrap gap-y-4">
                     <div class="w-1/2 pr-3">
                         {{ form.first_name.label_tag }}
@@ -37,35 +51,49 @@
                         <span class="text-danger-100 text-sm">{{ form.designation.errors }}</span>
                     </div>
                     <div class="w-1/2 pl-3">
-                        {{ form.dob.label_tag }}
-                        {{ form.dob }}
-                        <span class="text-danger-100 text-sm">{{ form.dob.errors }}</span>
-                    </div>
-                    <div class="w-1/2 pr-3">
-                        {{ form.address.label_tag }}
-                        {{ form.address }}
-                        <span class="text-danger-100 text-sm">{{ form.address.errors }}</span>
-                    </div>
-                    <div class="w-1/2 pl-3">
                         {{ form.assigned_to.label_tag }}
                         {{ form.assigned_to }}
                         <span class="text-danger-100 text-sm">{{ form.assigned_to.errors }}</span>
                     </div>
                     <div class="w-1/2 pr-3">
+                        {{ form.dob.label_tag }}
+                        {{ form.dob }}
+                        <span class="text-danger-100 text-sm">{{ form.dob.errors }}</span>
+                    </div>
+                    <div class="w-1/2 pl-3">
+                        {{ form.address.label_tag }}
+                        {{ form.address }}
+                        <span class="text-danger-100 text-sm">{{ form.address.errors }}</span>
+                    </div>
+                    
+                    <div class="w-1/2 pr-3">
                         {{ form.adhar.label_tag }}
                         {{ form.adhar }}
                         <span class="text-danger-100 text-sm">{{ form.adhar.errors }}</span>
                     </div>
-                    <div class="w-1/2 pl-3">
-                        {{ form.password.label_tag }}
-                        {{ form.password }}
-                        <span class="text-danger-100 text-sm">{{ form.password.errors }}</span>
+                    <div class="w-1/2 pl-3" id="image">
+                        {{ form.esic.label_tag }}
+                        {{ form.esic }}
+                        <span class="text-danger-100 text-sm">{{ form.esic.errors }}</span>
                     </div>
-                    
+                    <div class="w-1/2 pr-3">
+                        {{ form.epf.label_tag }}
+                        {{ form.epf }}
+                        <span class="text-danger-100 text-sm">{{ form.epf.errors }}</span>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn text-white bg-success-100 mt-5  hover:bg-transparent hover:text-success-100">Add Employee</button>
+                <button type="submit" class="btn text-white bg-success-100 mt-5 block mx-auto hover:bg-transparent hover:text-success-100">Update</button>
             </form>
         </div>
     </div>
+    
+    <script>
+        function img_pathUrl(input){
+            $('#pr_image')[0].src = (window.URL ? URL : webkitURL).createObjectURL(input.files[0]);
+        }
+        $(document).ready(function () {
+            
+        });
+    </script>
 {% endblock 'content' %}

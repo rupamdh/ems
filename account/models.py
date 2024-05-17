@@ -26,7 +26,7 @@ class Employee(AbstractUser):
     phone = models.CharField(max_length=10, unique=True)
     emg_phone = models.CharField(max_length=10, null=True, blank=True, verbose_name='Emergency Phone Number')
     address = models.CharField(max_length=300, null=True, blank=True)
-    dob = models.DateField(null=True, blank=True)
+    dob = models.DateField(null=True, blank=True, verbose_name='Date of Birth')
     adhar = models.CharField(max_length=12, null=True, blank=True, verbose_name='Adhar Number')
     epf = models.CharField(max_length=12, null=True, blank=True, verbose_name='EPF UAN Number')
     esic = models.CharField(max_length=10, null=True, blank=True, verbose_name='ESIC ID')
