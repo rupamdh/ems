@@ -3,6 +3,7 @@ from django.http import JsonResponse
 from .models import *
 from datetime import datetime
 from django.contrib import messages
+from .forms import *
 
 # Create your views here.
 def leaves(request):
@@ -19,24 +20,18 @@ def leaves(request):
 
 def apply_leave(request):
     if request.method == 'POST':
-        type = request.POST['leavetype']
-        start_date = request.POST['start_date']
-        end_date = request.POST['end_date']
-        reasone = request.POST['reason']
-        try:
-            leave = Leave.objects.get(start_date=start_date, employee=request.user)
-            if leave:
-                messages.error(request, f'You Already have a leave request on {start_date}')
-        except Leave.DoesNotExist:
-            Leave.objects.create(
-                type=type,
-                employee=request.user,
-                start_date=start_date,
-                end_date=end_date,
-                reasone=reasone
-            )
-            return redirect('leaves')
-    return render(request, 'hr/apply-leave.html')
+        form = LeaveApplyForm(request.POST)
+        if form.is_valid():
+           print('Valid')
+        else:
+           print('Not valid')
+    else:
+        form = LeaveApplyForm()
+    
+    data = {
+        'form' : form
+    }
+    return render(request, 'hr/apply-leave.html', data)
 
 def approve_leave_manager(request):
     id = request.POST.get('id')

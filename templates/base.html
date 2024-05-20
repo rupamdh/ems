@@ -66,10 +66,12 @@
                                 <a href="{% url 'dashboard' %}" class="text hover:bg-primary-100 {% if url == 'dashboard' %}bg-primary-100 active{% endif %}"><i class="fa-solid fa-house text-primary-100"></i>Dashboard</a>
                             </div>
 
-                            <div class="nav-item">
-                                <a href="{% url 'employees' %}" class="hover:bg-warning-100 {% if url == 'add-employee' or url == 'employees' or url == 'edit-employee' %}bg-warning-100 active{% endif %}"><i class="fa-solid fa-users text-warning-100"></i> Employees</a>
-                            </div>
-
+                            {% if request.user|has_group:'HP' %}
+                                <div class="nav-item">
+                                    <a href="{% url 'employees' %}" class="hover:bg-warning-100 {% if url == 'add-employee' or url == 'employees' or url == 'edit-employee' %}bg-warning-100 active{% endif %}"><i class="fa-solid fa-users text-warning-100"></i> Employees</a>
+                                </div>
+                            {% endif %}
+                                
                             <div class="nav-item">
                                 <a href="{% url 'leaves' %}" class="hover:bg-info-100 {% if url == 'leaves' or url == 'apply-leave' %}bg-info-100 active{% endif %}"><i class="fa-solid fa-champagne-glasses text-info-100"></i> Leaves</a>
                             </div>
